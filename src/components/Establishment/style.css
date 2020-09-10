@@ -1,5 +1,6 @@
 .left-bar {
     height: 100%;
+    overflow-y: auto;
 }
 
 .left-bar img {
