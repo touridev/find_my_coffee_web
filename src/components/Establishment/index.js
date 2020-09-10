@@ -1,24 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import EstablishmentPhotoService from '../../services/establishment_photo';
+import React, { useEffect } from 'react';
 
 import './style.css';
 
 const Establishment = (props) => {
-    const [photo, setPhoto] = useState();
-
-    useEffect(() => {
-        loadPhoto();
-        console.log(props);
-    }, [])
     
-    async function loadPhoto() {
-        const response = await EstablishmentPhotoService.index(props.establishment.photos[0].photo_reference);
-        setPhoto(response.data);
-    }
+    useEffect(() => {
+        console.log(props);
+    }, []);
 
     return (
         <div className="left-bar">
-            testeeeee
+            <div className="about">
+                <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${props.establishment.photos[0].photo_reference}&sensor=false&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`} />
+
+                <br />
+                
+                <h3>{props.establishment.name}</h3>
+
+                <br />
+                
+                <p>
+                    {props.establishment.formatted_address}
+                </p>
+
+                <hr />
+
+                <span>
+                    2 Opiniões
+                </span>
+            </div>
+
         </div>
     )
 }

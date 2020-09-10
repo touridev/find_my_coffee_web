@@ -1,0 +1,15 @@
+.left-bar, .right-bar > * {
+    background-color: rgba(10,10,10,0.9);
+    padding: 20px;
+}
+
+.left-bar, .right-bar {
+    width: 250px;
+    z-index: 10;
+    position: absolute;
+    color: white;
+}
+
+hr {
+    height: 1px!important;
+}

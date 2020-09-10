@@ -1,4 +1,16 @@
 .left-bar {
-    height: 400px;
-    width: 300px;
+    height: 100%;
+}
+
+.left-bar img {
+    height: 150px;
+    width: 100%;
+}
+
+.left-bar h3 {
+    color: rgba(220,110,50,0.7);
+}
+
+.left-bar p {
+    font-size: 0.8rem;
 }

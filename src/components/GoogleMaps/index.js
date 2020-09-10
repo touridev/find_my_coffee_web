@@ -36,7 +36,7 @@ const MapContainer = () => {
     }
   
     return (
-        <div>
+        <div className="map">
             <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
                 <GoogleMap
                 mapContainerStyle={mapStyles}
@@ -52,17 +52,17 @@ const MapContainer = () => {
                             )
                         })
                     }
+
+                    {
+                        selected.photos && 
+                            (
+                                <>
+                                    <Establishment establishment={selected} />
+                                </>
+                            )
+                    }
                 </GoogleMap>
             </LoadScript>
-
-            {
-                selected.photos && 
-                (
-                    <>
-                        <Establishment establishment={selected} />
-                    </>
-                )
-            }
         </div>
     )
 }
