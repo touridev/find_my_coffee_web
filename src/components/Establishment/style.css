@@ -15,3 +15,11 @@
 .left-bar p {
     font-size: 0.8rem;
 }
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}

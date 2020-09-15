@@ -24,3 +24,13 @@
 .signature a:hover {
     color: white;
 }
+
+.body {
+    height: 450px;
+    overflow-y: auto;
+}
+
+.body span {
+    font-size: 1.4em;
+    font-weight: 600;
+}

@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ListCoffees from './ListCoffees';
+
+import StoreService from '../../services/Local/store';
+
 import "./style.css";
 
-const NearCoffees = () => {
+const NearstCoffees = (props) => {
+    const [stores, setStores] = useState([]);
+
+    useEffect(() => {
+        loadNearstStores();
+    }, []);
+
+    async function loadNearstStores() {
+        const response = await StoreService.index(props.latitude, props.longitude);
+        setStores(response.data);
+    }
+
     return (
         <div className="right-bar">
             <div className="head">
@@ -9,11 +24,11 @@ const NearCoffees = () => {
             </div>
 
             <div className="body">
-                <b>Mais amados perto de você</b>
+                <span>Mais amados perto de você</span>
 
                 <hr />
 
-
+                <ListCoffees stores={stores} />
             </div>
 
             <div className="signature">
@@ -30,4 +45,4 @@ const NearCoffees = () => {
     )
 }
 
-export default NearCoffees;
+export default NearstCoffees;

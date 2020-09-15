@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from '../Form';
 
 import ProfilePhoto from '../../assets/cafe_excesso.jpg';
 
 import './style.css';
+import ListRatings from './ListRatings';
 
 const Establishment = (props) => {
 
     useEffect(() => {
-        console.log(props);
-    })
+        console.log(props.ratings);
+    }, [props.ratings]);
 
     return (
         <div className="left-bar">
@@ -29,7 +30,8 @@ const Establishment = (props) => {
 
                 {
                     (props.place.opening_hours) ? 
-                        <> { 
+                        <> 
+                            { 
                                 (props.place.opening_hours.open_now == true) ? 'Aberto' : 'Fechado' 
                             } 
 
@@ -56,10 +58,20 @@ const Establishment = (props) => {
                 <hr />
 
                 <span>
-                    2 Opiniões
+                    { 
+                        (props.ratings.ratings_count > 0) ? props.ratings.ratings_count : 0 
+                    } Opiniões 
+
+                    {
+                        [...Array(props.ratings.ratings_average)].map((i) => <span className="right" key={i}>*</span>)
+                    }
                 </span>
 
-                <Form />
+                <hr />
+
+                <ListRatings ratings={props.ratings} />
+
+                <Form store={props} />
             </div>
 
         </div>

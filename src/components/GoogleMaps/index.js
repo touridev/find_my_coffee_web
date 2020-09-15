@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-import EstablishmentService from '../../services/establishment';
-import EstablishmentsService from '../../services/establishments';
+import EstablishmentService from '../../services/Google/establishment';
+import EstablishmentsService from '../../services/Google/establishments';
+import RatingService from '../../services/Local/rating';
 
 import Establishment from '../Establishment';
+import NearstCoffees from '../NearstCoffees';
 
 const MapContainer = () => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [selected, setSelected] = useState({});
     const [locations, setLocations] = useState([]);
+    const [ratings, setRatings] = useState([]);
 
     const mapStyles = {        
         height: "100vh",
@@ -21,6 +24,10 @@ const MapContainer = () => {
         setCurrentLocation();
         loadCoffeShops();
     }, []);
+
+    useEffect(() => {
+        loadRatings();
+    }, [selected])
 
     async function setCurrentLocation() {
         await navigator.geolocation.getCurrentPosition(function(position) {
@@ -37,8 +44,17 @@ const MapContainer = () => {
 
     // Load informations of a establishment clicking on it
     async function getEstablishmentInformations(place_id) {
+        // Clear ratings
+        setRatings([]);
+
         const response = await EstablishmentService.index(place_id);
         setSelected(response.data.result);
+    }
+
+    // Load Establishment Ratings
+    async function loadRatings() {
+        const response = await RatingService.show(selected.place_id);
+        setRatings(response.data);
     }
     
     const defaultCenter = {
@@ -66,10 +82,12 @@ const MapContainer = () => {
                         selected.place_id && 
                             (
                                 <>
-                                    <Establishment place={selected} />
+                                    <Establishment place={selected} ratings={ratings} />
                                 </>
                             )
                     }
+
+                    <NearstCoffees latitude={latitude} longitude={longitude} />
                 </GoogleMap>
             </LoadScript>
         </div>

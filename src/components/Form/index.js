@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
+import RatingService from '../../services/Local/rating';
+
 
 import './style.css';
 
-const Form = () => {
-    const [name, setName] = useState();
-    const [message, setMessage] = useState();
+const Form = (props) => {
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+    const [value, setValue] = useState(1);
 
     async function handleSubmit(e) {
         e.preventDefault();
 
-        console.log(name);
-        console.log(message);
+        const store_params = {
+            latitude: props.store.place.geometry.location.lat,
+            longitude: props.store.place.geometry.location.lng,
+            name: props.store.place.name,
+            address: props.store.place.formatted_address,
+            place_id: props.store.place.place_id
+        }
+
+        const rating_params = {
+            value: value,
+            opinion: message,
+            user_name: name
+        }
+
+        await RatingService.create(store_params, rating_params);
 
         setName('');
         setMessage('');
