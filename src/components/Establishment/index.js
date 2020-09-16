@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Form from '../Form';
 
 import ProfilePhoto from '../../assets/cafe_excesso.jpg';
+import StarYellow from '../../assets/star_yellow.png';
+
+import ListRatings from './ListRatings';
 
 import './style.css';
-import ListRatings from './ListRatings';
 
 const Establishment = (props) => {
 
@@ -50,26 +52,36 @@ const Establishment = (props) => {
                 }
 
                 <hr />
-                
+
                 <p>
                     {props.place.formatted_address}
                 </p>
 
                 <hr />
+                
+                <div className="opinions">
+                    <span>
+                        { 
+                            (props.ratings.ratings_count > 0) ? props.ratings.ratings_count : 0 
+                        } Opiniões 
 
-                <span>
-                    { 
-                        (props.ratings.ratings_count > 0) ? props.ratings.ratings_count : 0 
-                    } Opiniões 
+                        {
+                            props.ratings.ratings_count > 0 &&
+                            (
+                                [...Array(props.ratings.ratings_average)].map((i) => <img src={StarYellow} className="rating_star right" alt="star yellow" />)
+                            )
+                        }
+                    </span>
 
+                    <hr />
+                    
                     {
-                        [...Array(props.ratings.ratings_average)].map((i) => <span className="right" key={i}>*</span>)
+                        props.ratings.ratings_count > 0 &&
+                        (
+                            <ListRatings ratings={props.ratings} />
+                        )
                     }
-                </span>
-
-                <hr />
-
-                <ListRatings ratings={props.ratings} />
+                </div>
 
                 <Form store={props} />
             </div>

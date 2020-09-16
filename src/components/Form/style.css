@@ -1,3 +1,7 @@
 form > input, form > textarea {
     margin-top: 10px;
 }
+
+.form_stars {
+    margin-top: 5px;
+}

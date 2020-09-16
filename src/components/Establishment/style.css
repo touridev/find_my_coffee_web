@@ -23,3 +23,13 @@
 .left {
     float: left;
 }
+
+.rating_star {
+    width: 15px!important;
+    height: 15px!important;
+}
+
+.opinions hr {
+    width: 80%;
+    margin-left: 10%;
+}

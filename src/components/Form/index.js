@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { Column } from 'rbx';
+
 import RatingService from '../../services/Local/rating';
 
+import StarYellow from '../../assets/star_yellow.png';
+import StarGray from '../../assets/star.png';
 
 import './style.css';
 
@@ -40,7 +44,7 @@ const Form = (props) => {
                 <input name="name" 
                        type="text" 
                        className="input" 
-                       placeholder="Seu nome" 
+                       placeholder="Seu primeiro nome" 
                        onChange={(e) => setName(e.target.value)}
                        value={name}/>
 
@@ -50,7 +54,29 @@ const Form = (props) => {
                           onChange={(e) => setMessage(e.target.value)}
                           value={message}></textarea>
 
-                <input type="submit" value="Enviar" className="button is-danger" />
+                <br />
+
+                <Column.Group>
+                    <Column className="form_stars">
+                        {
+                            [...Array(5)].map((key, index) => {
+                                return (
+                                    <img className="rating_star" 
+                                         src={StarGray}
+                                         value={index + 1} 
+                                         key={index} 
+                                         alt="star yellow" 
+                                         onMouseOver={e => (e.relatedTarget.src = StarYellow)}
+                                         onClick={() => setValue(index + 1)} />
+                                )
+                            })
+                        }
+                    </Column>
+
+                    <Column>
+                        <input type="submit" value="Enviar" className="button is-danger" />
+                    </Column>
+                </Column.Group>
             </form>
 
         </div>

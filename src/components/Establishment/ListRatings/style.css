@@ -1,0 +1,4 @@
+.listing_opinions {
+    height: 200px;
+    overflow-y: auto;
+}

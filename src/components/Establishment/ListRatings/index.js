@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import StarYellow from '../../../assets/star_yellow.png';
+
+import './style.css';
 
 const ListRatings = (props) => {
     const [ratings, setRatings] = useState([]);
@@ -10,7 +13,7 @@ const ListRatings = (props) => {
     }, [props]);
 
     return (
-        <div>
+        <div className="listing_opinions">
             {
                 ratings &&
                 ratings.map(rating => {
@@ -20,17 +23,19 @@ const ListRatings = (props) => {
                                 <b>{ rating.user_name }</b>
 
                                 {
-                                    [...Array(rating.value)].map((i) => <span className="right" key={i}>*</span>)
+                                    [...Array(rating.value)].map((key, index) => {
+                                        return (
+                                            <img src={StarYellow} className="right rating_star" key={index} alt="star yellow" />
+                                        )
+                                    })
                                 }
                             </div>
 
-                            <div>
-                                { rating.opinion }
-                            </div>
+                            { rating.opinion }
                             
-                            <div>
+                            <p>
                                 { rating.date }
-                            </div>
+                            </p>
 
                             <hr />
                         </div>

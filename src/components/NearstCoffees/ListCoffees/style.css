@@ -6,3 +6,8 @@
 .list_establishment b {
     font-size: 0.9em;
 }
+
+.listing_stores {
+    padding-top: 10px;
+    font-size: 0.8em;
+}
