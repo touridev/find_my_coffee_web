@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Column } from 'rbx';
+
 import Form from '../Form';
 
 import ProfilePhoto from '../../assets/cafe_excesso.jpg';
 import StarYellow from '../../assets/star_yellow.png';
+import StarGray from '../../assets/star.png';
 
 import ListRatings from './ListRatings';
 
 import './style.css';
 
 const Establishment = (props) => {
-
-    useEffect(() => {
-        console.log(props.ratings);
-    }, [props.ratings]);
-
     return (
         <div className="left-bar">
             <div className="about">
                 {
                     (props.place.photos) ? 
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${props.place.photos[0].photo_reference}&sensor=false&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`} alt="Store perfil photo"/> 
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${props.place.photos[0].photo_reference}&sensor=false&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`} alt="Store perfil"/> 
                     :  
-                        <img src={ProfilePhoto} alt="No perfil photo" />
+                        <img src={ProfilePhoto} alt="No perfil" />
                 }
 
                 <br />
@@ -34,7 +32,7 @@ const Establishment = (props) => {
                     (props.place.opening_hours) ? 
                         <> 
                             { 
-                                (props.place.opening_hours.open_now == true) ? 'Aberto' : 'Fechado' 
+                                (props.place.opening_hours.open_now === true) ? 'Aberto' : 'Fechado' 
                             } 
 
                             <hr />
@@ -60,18 +58,29 @@ const Establishment = (props) => {
                 <hr />
                 
                 <div className="opinions">
-                    <span>
-                        { 
-                            (props.ratings.ratings_count > 0) ? props.ratings.ratings_count : 0 
-                        } Opiniões 
+                    <Column.Group>
+                        <Column>
+                            { 
+                                (props.ratings.ratings_count > 0) ? props.ratings.ratings_count : 0 
+                            } Opiniões 
+                        </Column>
 
-                        {
-                            props.ratings.ratings_count > 0 &&
-                            (
-                                [...Array(props.ratings.ratings_average)].map((i) => <img src={StarYellow} className="rating_star right" alt="star yellow" />)
-                            )
-                        }
-                    </span>
+                        <Column>
+                            {
+                                props.ratings.ratings_count > 0 &&
+                                (
+                                    [...Array(props.ratings.ratings_average)].map((i) => <img src={StarYellow} className="rating_star" alt="star yellow" />)
+                                )
+                            }
+
+                            {
+                                props.ratings.ratings_count > 0 &&
+                                (
+                                    [...Array(5 - props.ratings.ratings_average)].map((i) => <img src={StarGray} className="rating_star" alt="star gray" />)
+                                )
+                            }
+                        </Column>
+                    </Column.Group>
 
                     <hr />
                     

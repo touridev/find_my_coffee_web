@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
+
+import { Column } from 'rbx';
+
 import StarYellow from '../../../assets/star_yellow.png';
+import StarGray from '../../../assets/star.png';
 
 import './style.css';
 
@@ -8,8 +12,6 @@ const ListRatings = (props) => {
 
     useEffect(() => {
         setRatings(props.ratings.ratings);
-
-        console.log(props.ratings.ratings);
     }, [props]);
 
     return (
@@ -19,17 +21,29 @@ const ListRatings = (props) => {
                 ratings.map(rating => {
                     return (
                         <div key={rating.id}>
-                            <div>
-                                <b>{ rating.user_name }</b>
+                            <Column.Group>
+                                <Column>
+                                    <b>{ rating.user_name }</b>
+                                </Column>
 
-                                {
-                                    [...Array(rating.value)].map((key, index) => {
-                                        return (
-                                            <img src={StarYellow} className="right rating_star" key={index} alt="star yellow" />
-                                        )
-                                    })
-                                }
-                            </div>
+                                <Column>
+                                    {
+                                        [...Array(rating.value)].map((key, index) => {
+                                            return (
+                                                <img src={StarYellow} className="rating_star" key={index} alt="star yellow" />
+                                            )
+                                        })
+                                    }
+
+                                    {
+                                        [...Array(5 - rating.value)].map((key, index) => {
+                                            return (
+                                                <img src={StarGray} className="rating_star" key={index} alt="star gray" />
+                                            )
+                                        })
+                                    }
+                                </Column>
+                            </Column.Group>
 
                             { rating.opinion }
                             

@@ -5,7 +5,6 @@ import StarYellow from '../../../assets/star_yellow.png';
 import StarGray from '../../../assets/star.png';
 
 import './style.css';
-import { ColumnGroup } from 'rbx/grid/columns/column-group';
 
 const ListEstablishments = (props) => {
     return (
@@ -25,7 +24,15 @@ const ListEstablishments = (props) => {
                                     {
                                         [...Array(store.ratings_count)].map((key, index) => {
                                             return (
-                                                <img src={(store.ratings_count >= index + 1) ? StarYellow : StarGray} onClick={() => console.log(index)} className="right rating_star" key={index} alt="star yellow" />
+                                                <img src={StarYellow} className="rating_star" key={index} alt="star yellow" />
+                                            )
+                                        })
+                                    }
+
+{
+                                        [...Array(5 - store.ratings_count)].map((key, index) => {
+                                            return (
+                                                <img src={StarGray} className="rating_star" key={index} alt="star gray" />
                                             )
                                         })
                                     }
