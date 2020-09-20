@@ -42,32 +42,34 @@ const ListRatings = (props) => {
                 <hr />
             </div>
             
-            <div className="listing_opinions">
-                {
-                    ratingsList.ratings &&
-                    ratingsList.ratings.map(rating => {
-                        return (
-                            <div key={rating.id}>
-                                <Column.Group>
-                                    <Column>
-                                        <b>{ rating.user_name }</b>
-                                    </Column>
-
-                                    <ListStars count={rating.value} average={rating.value} />
-                                </Column.Group>
-
-                                { rating.opinion }
-                                
-                                <p>
-                                    { rating.date }
-                                </p>
-
-                                <hr />
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            {
+                ratingsList.ratings &&
+                <div className="listing_opinions">
+                    {
+                        ratingsList.ratings.map(rating => {
+                            return (
+                                <div key={rating.id}>
+                                    <Column.Group>
+                                        <Column>
+                                            <b>{ rating.user_name }</b>
+                                        </Column>
+    
+                                        <ListStars count={rating.value} average={rating.value} />
+                                    </Column.Group>
+    
+                                    { rating.opinion }
+                                    
+                                    <p>
+                                        { rating.date }
+                                    </p>
+    
+                                    <hr />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            }
         </>
     )
 }
