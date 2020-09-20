@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-import EstablishmentService from '../../services/Google/establishment';
 import EstablishmentsService from '../../services/Google/establishments';
-import RatingService from '../../services/Local/rating';
 
 import Establishment from '../Establishment';
 import NearstCoffees from '../NearstCoffees';
@@ -13,7 +11,6 @@ const MapContainer = () => {
     const [longitude, setLongitude] = useState(0);
     const [selected, setSelected] = useState({});
     const [locations, setLocations] = useState([]);
-    const [ratings, setRatings] = useState([]);
 
     const mapStyles = {        
         height: "100vh",
@@ -22,39 +19,27 @@ const MapContainer = () => {
 
     useEffect(() => {
         setCurrentLocation();
-        loadCoffeShops();
     }, []);
 
     useEffect(() => {
-        loadRatings();
-    }, [selected])
+        loadCoffeShops();
+    }, [longitude])
 
     async function setCurrentLocation() {
-        await navigator.geolocation.getCurrentPosition(function(position) {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-        });
+        try {
+            await navigator.geolocation.getCurrentPosition(function(position) {
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+            });
+        } catch (error) {
+            alert('Habilite a localização para utilizar o aplicativo!');
+        }
     }
 
     // Load all coffee shops
     async function loadCoffeShops() {
         const response = await EstablishmentsService.index(latitude, longitude);
         setLocations(response.data.results);
-    }
-
-    // Load informations of a establishment clicking on it
-    async function getEstablishmentInformations(place_id) {
-        // Clear ratings
-        setRatings([]);
-
-        const response = await EstablishmentService.index(place_id);
-        setSelected(response.data.result);
-    }
-
-    // Load Establishment Ratings
-    async function loadRatings() {
-        const response = await RatingService.show(selected.place_id);
-        setRatings(response.data);
     }
     
     const defaultCenter = {
@@ -72,7 +57,7 @@ const MapContainer = () => {
                             return (
                                 <Marker key={item.name} 
                                     position={{lat: item.geometry.location.lat, lng: item.geometry.location.lng}}
-                                    onClick={() => getEstablishmentInformations(item.place_id)}
+                                    onClick={() => setSelected(item)}
                                 />
                             )
                         })
@@ -81,9 +66,7 @@ const MapContainer = () => {
                     {
                         selected.place_id && 
                             (
-                                <>
-                                    <Establishment place={selected} ratings={ratings} />
-                                </>
+                                <Establishment place={selected} />
                             )
                     }
 

@@ -17,11 +17,11 @@ const Form = (props) => {
         e.preventDefault();
 
         const store_params = {
-            latitude: props.store.place.geometry.location.lat,
-            longitude: props.store.place.geometry.location.lng,
-            name: props.store.place.name,
-            address: props.store.place.formatted_address,
-            place_id: props.store.place.place_id
+            latitude: props.place.geometry.location.lat,
+            longitude: props.place.geometry.location.lng,
+            name: props.place.name,
+            address: props.place.formatted_address,
+            place_id: props.place.place_id
         }
 
         const rating_params = {
@@ -38,6 +38,8 @@ const Form = (props) => {
 
     return (
         <div>
+            <br />
+            
             <b>Deixe sua Opinião</b>
 
             <form onSubmit={handleSubmit}>

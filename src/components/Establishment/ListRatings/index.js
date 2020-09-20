@@ -2,61 +2,73 @@ import React, { useEffect, useState } from 'react';
 
 import { Column } from 'rbx';
 
-import StarYellow from '../../../assets/star_yellow.png';
-import StarGray from '../../../assets/star.png';
+import RatingService from '../../../services/Local/rating.js';
+
+import ListStars from '../../ListStars';
 
 import './style.css';
 
 const ListRatings = (props) => {
-    const [ratings, setRatings] = useState([]);
+    const [ratingsList, setRatingsList] = useState([]);
 
     useEffect(() => {
-        setRatings(props.ratings.ratings);
+        loadRatings();
     }, [props]);
 
+    // Load Establishment Ratings
+    async function loadRatings() {
+        try {
+            const response = await RatingService.show(props.place_id);
+            setRatingsList(response.data);
+        } catch (error) {
+            setRatingsList([]);
+            console.log(error);
+        }
+    }
+
     return (
-        <div className="listing_opinions">
-            {
-                ratings &&
-                ratings.map(rating => {
-                    return (
-                        <div key={rating.id}>
-                            <Column.Group>
-                                <Column>
-                                    <b>{ rating.user_name }</b>
-                                </Column>
+        <>
+            <div className="opinions">
+                <Column.Group>
+                    <Column>
+                        { 
+                            (ratingsList.ratings_count > 0) ? ratingsList.ratings_count : 0 
+                        } Opiniões 
+                    </Column>
 
-                                <Column>
-                                    {
-                                        [...Array(rating.value)].map((key, index) => {
-                                            return (
-                                                <img src={StarYellow} className="rating_star" key={index} alt="star yellow" />
-                                            )
-                                        })
-                                    }
+                    <ListStars count={ratingsList.ratings_count} average={ratingsList.ratings_average} />
+                </Column.Group>
 
-                                    {
-                                        [...Array(5 - rating.value)].map((key, index) => {
-                                            return (
-                                                <img src={StarGray} className="rating_star" key={index} alt="star gray" />
-                                            )
-                                        })
-                                    }
-                                </Column>
-                            </Column.Group>
+                <hr />
+            </div>
+            
+            <div className="listing_opinions">
+                {
+                    ratingsList.ratings &&
+                    ratingsList.ratings.map(rating => {
+                        return (
+                            <div key={rating.id}>
+                                <Column.Group>
+                                    <Column>
+                                        <b>{ rating.user_name }</b>
+                                    </Column>
 
-                            { rating.opinion }
-                            
-                            <p>
-                                { rating.date }
-                            </p>
+                                    <ListStars count={rating.value} average={rating.value} />
+                                </Column.Group>
 
-                            <hr />
-                        </div>
-                    )
-                })
-            }
-        </div>
+                                { rating.opinion }
+                                
+                                <p>
+                                    { rating.date }
+                                </p>
+
+                                <hr />
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </>
     )
 }
 
