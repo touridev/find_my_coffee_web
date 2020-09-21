@@ -6,6 +6,8 @@ import RatingService from '../../services/Local/rating';
 import StarYellow from '../../assets/star_yellow.png';
 import StarGray from '../../assets/star.png';
 
+import Rating from '@material-ui/lab/Rating';
+
 import './style.css';
 
 const Form = (props) => {
@@ -25,7 +27,7 @@ const Form = (props) => {
         }
 
         const rating_params = {
-            value: value,
+            value: (value == null) ? 1 : value,
             opinion: message,
             user_name: name
         }
@@ -60,19 +62,12 @@ const Form = (props) => {
 
                 <Column.Group>
                     <Column className="form_stars">
-                        {
-                            [...Array(5)].map((key, index) => {
-                                return (
-                                    <img className="rating_star" 
-                                         src={StarGray}
-                                         value={index + 1} 
-                                         key={index} 
-                                         alt="star yellow" 
-                                         onMouseOver={e => (e.relatedTarget.src = StarYellow)}
-                                         onClick={() => setValue(index + 1)} />
-                                )
-                            })
-                        }
+                        <Rating
+                        name="controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }} />
                     </Column>
 
                     <Column>
