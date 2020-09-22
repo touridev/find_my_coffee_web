@@ -11,3 +11,7 @@
     padding-top: 10px;
     font-size: 0.8em;
 }
+
+.rating_stars svg  {
+    margin-right: -10px!important;
+}

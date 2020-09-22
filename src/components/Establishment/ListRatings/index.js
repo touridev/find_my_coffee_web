@@ -4,7 +4,7 @@ import { Column } from 'rbx';
 
 import RatingService from '../../../services/Local/rating.js';
 
-import ListStars from '../../ListStars';
+import Rating from '@material-ui/lab/Rating';
 
 import './style.css';
 
@@ -36,7 +36,11 @@ const ListRatings = (props) => {
                         } Opiniões 
                     </Column>
 
-                    <ListStars count={ratingsList.ratings_count} average={ratingsList.ratings_average} />
+                    <Rating name="read-only" 
+                            value={
+                                (ratingsList.ratings_count) > 0 ?
+                                ratingsList.ratings_average : 0
+                            } readOnly />
                 </Column.Group>
 
                 <hr />
@@ -53,8 +57,14 @@ const ListRatings = (props) => {
                                         <Column>
                                             <b>{ rating.user_name }</b>
                                         </Column>
-    
-                                        <ListStars count={rating.value} average={rating.value} />
+
+                                        <Column>
+                                            <Rating name="read-only" 
+                                                    value={
+                                                        (rating.value) > 0 ?
+                                                        rating.value : 0
+                                                    } readOnly />
+                                        </Column>
                                     </Column.Group>
     
                                     { rating.opinion }

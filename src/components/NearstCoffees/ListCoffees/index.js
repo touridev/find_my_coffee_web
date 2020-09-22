@@ -1,7 +1,7 @@
 import React from 'react';
 import { Column } from 'rbx';
 
-import ListStars from '../../ListStars';
+import Rating from '@material-ui/lab/Rating';
 
 import './style.css';
 
@@ -19,7 +19,14 @@ const ListEstablishments = (props) => {
                             </p>
                             
                             <Column.Group className="listing_stores">
-                                <ListStars count={store.ratings_count} average={store.ratings_average} />
+                                <Column>
+                                    <Rating name="read-only"
+                                            className="rating_stars"  
+                                            value={
+                                                (store.ratings_count) > 0 ?
+                                                store.ratings_average : 0
+                                            } readOnly />
+                                </Column>
 
                                 <Column className="right">
                                     { store.ratings_count } Opiniões

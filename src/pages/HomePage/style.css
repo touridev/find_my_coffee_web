@@ -13,3 +13,12 @@
 hr {
     height: 1px!important;
 }
+
+.listing_stores > div {
+    margin-left: -10px;
+}
+
+.MuiRating-icon svg {
+    height: 20px;
+    margin-left: -5px;
+}

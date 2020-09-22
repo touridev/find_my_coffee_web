@@ -3,9 +3,6 @@ import { Column } from 'rbx';
 
 import RatingService from '../../services/Local/rating';
 
-import StarYellow from '../../assets/star_yellow.png';
-import StarGray from '../../assets/star.png';
-
 import Rating from '@material-ui/lab/Rating';
 
 import './style.css';
@@ -64,7 +61,7 @@ const Form = (props) => {
                     <Column className="form_stars">
                         <Rating
                         name="controlled"
-                        value={value}
+                        value={value} 
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }} />
