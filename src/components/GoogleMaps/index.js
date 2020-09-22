@@ -6,7 +6,7 @@ import EstablishmentsService from '../../services/Google/establishments';
 import Establishment from '../Establishment';
 import NearstCoffees from '../NearstCoffees';
 
-const MapContainer = () => {
+const GoogleMaps = () => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [selected, setSelected] = useState({});
@@ -77,4 +77,4 @@ const MapContainer = () => {
     )
 }
 
-export default MapContainer;
+export default GoogleMaps;
