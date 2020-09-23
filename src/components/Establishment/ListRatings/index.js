@@ -37,6 +37,7 @@ const ListRatings = (props) => {
                     </Column>
 
                     <Rating name="read-only" 
+                            className="m-top"
                             value={
                                 (ratingsList.ratings_count) > 0 ?
                                 ratingsList.ratings_average : 0
