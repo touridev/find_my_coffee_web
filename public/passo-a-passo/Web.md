@@ -1,5 +1,26 @@
 ## Construindo nosso APP
 
+### Criando nossa GOOGLE API KEY
+
+Documentação oficial: https://developers.google.com/places/web-service/get-api-key
+
+1 - A chave API é um identificador exclusivo que autentica as solicitações associadas ao seu projeto para fins de uso e faturamento. Você deve ter pelo menos uma chave API associada ao seu projeto.
+
+Para criar uma chave de API:
+
+No Cloud Console, na página do seletor de projeto, selecione ou crie um projeto do Google Cloud para o qual deseja adicionar uma chave de API no link abaixo:
+https://console.cloud.google.com/projectselector2/home/dashboard
+
+2 - Vá para a página APIs & Services > Credentials no link abaixo:
+https://console.cloud.google.com/apis/credentials
+
+3 - Na página Credenciais, clique em Create credentials > API key. A caixa de diálogo Chave de API criada exibe sua chave de API recém-criada. 
+
+4 - Clique em Fechar.
+
+A nova chave de API está listada na página Credenciais em Chaves de API.
+(Lembre-se de restringir a chave API antes de usá-la na produção, no link https://developers.google.com/places/web-service/get-api-key#restrict_key.)
+
 ### Criando nosso projeto
 
 1 - Para começar, entre na pasta find-my-coffe, e vamos criar o nosso projeto com o seguinte comando:
