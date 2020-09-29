@@ -69,7 +69,7 @@ const GoogleMaps = () => {
 
     return (
         <div className="map">
-            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+            <LoadScript googleMapsApiKey='SUA_GOOGLE_KEY_API'>
                 <GoogleMap mapContainerStyle={mapStyles}
                 zoom={15}
                 center={{lat: -21.7768606, lng: -41.3109657}}>
@@ -114,7 +114,7 @@ const GoogleMaps = () => {
 
     return (
         <div className="map">
-            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+            <LoadScript googleMapsApiKey='SUA_GOOGLE_KEY_API'>
                 <GoogleMap mapContainerStyle={mapStyles}
                 zoom={15}
                 center={defaultCenter}>
@@ -224,7 +224,7 @@ export default GoogleService;
 import GoogleService from './google';
 
 const EstablishmentsService = {
-  index: (latitude, longitude) => GoogleService.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffee+shop&location=-${latitude},${longitude}&radius=5000&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`),
+  index: (latitude, longitude) => GoogleService.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffee+shop&location=-${latitude},${longitude}&radius=5000&key=SUA_GOOGLE_KEY_API`),
 }
 
 export default EstablishmentsService;
@@ -289,7 +289,7 @@ npm install axios
 import GoogleService from './google';
 
 const EstablishmentService = {
-  index: (place_id) => GoogleService.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`),
+  index: (place_id) => GoogleService.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=SUA_GOOGLE_KEY_API`),
 }
 
 export default EstablishmentService;
@@ -366,7 +366,7 @@ import './style.css';
             <div className="about">
                 {
                     (establishment.photos) ? 
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${establishment.photos[0].photo_reference}&sensor=false&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`} alt="Store perfil"/> 
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${establishment.photos[0].photo_reference}&sensor=false&key=SUA_GOOGLE_KEY_API`} alt="Store perfil"/> 
                     :  
                         <img src={ProfilePhoto} alt="No perfil" />
                 }
@@ -798,7 +798,7 @@ const GoogleMaps = () => {
   
     return (
         <div className="map">
-            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+            <LoadScript googleMapsApiKey='SUA_GOOGLE_KEY_API'>
                 <GoogleMap mapContainerStyle={mapStyles}
                 zoom={15}
                 center={(selected.geometry) ? '' : defaultCenter}>
@@ -1311,7 +1311,7 @@ const GoogleMaps = () => {
   
     return (
         <div className="map">
-            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+            <LoadScript googleMapsApiKey='SUA_GOOGLE_KEY_API'>
                 <GoogleMap mapContainerStyle={mapStyles}
                 zoom={15}
                 center={(selected.geometry) ? '' : defaultCenter}>
