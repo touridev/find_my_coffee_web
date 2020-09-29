@@ -18,21 +18,59 @@ npx create-react-app web
 npm install --save google-maps-react
 ```
 
-
-5 - Substitua o código do '/src/components/GoogleMaps/index.js' pelo código abaixo:
+5 - Primeiro vamos criar a estrutura básica do nosso componente com o seguinte código abaixo:
 
 ```
 import React, { useEffect, useState } from 'react';
+
+const GoogleMaps = () => {
+    return (
+        <div className="map">
+
+        </div>
+    )
+}
+
+export default GoogleMaps;
+```
+
+6 - Agora vamos habilitar o mapa no nosso app, adicionando o seguinte:
+
+```
+...
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+const GoogleMaps = () => {
+    const mapStyles = {        
+        height: "100vh",
+        width: "100%"
+    };
+
+    return (
+        <div className="map">
+            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+                <GoogleMap mapContainerStyle={mapStyles}
+                zoom={15}
+                center={{lat: -21.7768606, lng: -41.3109657}}>
+                </GoogleMap>
+            </LoadScript>
+        </div>
+    )
+}
+
+export default GoogleMaps;
+```
+
+7 - Habilitado o google maps, vamos setar nossa localização atual:
+
+```
+...
 
 const GoogleMaps = () => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
 
-    const mapStyles = {        
-        height: "100vh",
-        width: "100%"
-    };
+    ...
 
     useEffect(() => {
         setCurrentLocation();
@@ -61,18 +99,14 @@ const GoogleMaps = () => {
                 center={defaultCenter}>
                 </GoogleMap>
             </LoadScript>
-        </div>
-    )
-}
-
-export default GoogleMaps;
+    ...
 ```
 
-6 - Agora crie a pasta /src/pages/HomePage.
+8 - Agora crie a pasta /src/pages/HomePage.
 
-7 - Dentro da /src/pages/HomePage, crie os arquivos 'index.js' e 'style.css'.
+9 - Dentro da /src/pages/HomePage, crie os arquivos 'index.js' e 'style.css'.
 
-8 - Dentro do arquivo 'index.js', na page HomePage, cole o seguinte código:
+10 - Dentro do arquivo 'index.js', na page HomePage, escreva o seguinte código:
 
 ```
 import React from 'react';
@@ -91,7 +125,7 @@ const HomePage = () => {
 export default HomePage;
 ```
 
-9 - Agora cole o seguinte código no /src/pages/HomePage/style.css:
+11 - Agora cole o seguinte código no /src/pages/HomePage/style.css:
 
 ```
 .left-bar, .right-bar > * {
@@ -124,7 +158,7 @@ hr {
 }
 ```
 
-10 - Agora vá ao arquivo /App.js e substitua pelo código abaixo:
+12 - Agora vá ao arquivo /App.js e substitua pelo código abaixo, incluindo a page "HomePage":
 
 ```
 import React from 'react';
@@ -142,18 +176,18 @@ function App() {
 export default App;
 ```
 
-11 - Tente carregar o mapa!
+13 - Tente carregar o mapa!
 
-12 - Caso as APIs do google não estejam carregando, é necessário instalar um plugin no navegador para habilitar o Cors
+14 - Caso as APIs do google não estejam carregando, é necessário instalar um plugin no navegador para habilitar o Cors
 (Link do Plugin: https://chrome.google.com/webstore/detail/moesif-origin-cors-change/digfbfaphojjndkpccljibejjbppifbc).
 
-13 - Agora vamos setar nossos cafés no mapa!
+15 - Agora vamos setar nossos cafés no mapa!
 
-14 - Crie uma pasta '/src/services/Google'.
+16 - Crie uma pasta '/src/services/Google'.
 
-15 - Dentro essa pasta, crie os arquivos google.js e establishments.js.
+17 - Dentro essa pasta, crie os arquivos google.js e establishments.js.
 
-16 - Cole o código abaixo no arquivo google.js:
+18 - Cole o código abaixo no arquivo google.js:
 
 ```
 import axios from 'axios';
@@ -163,7 +197,7 @@ const GoogleService = axios.create({baseURL: ""});
 export default GoogleService;
 ```
 
-17 - Agora navegue no arquivo establishments.js e cole o seguinte código:
+19 - Agora navegue no arquivo establishments.js e cole o seguinte código:
 
 ```
 import GoogleService from './google';
@@ -175,56 +209,32 @@ const EstablishmentsService = {
 export default EstablishmentsService;
 ```
 
-18 - Agora volte ao componente 'components/GoogleMaps' e substitua-o pelo seguinte código:
+20 - Agora volte ao componente 'components/GoogleMaps' e substitua-o pelo seguinte código:
 
 ```
-import React, { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+...
 
 import EstablishmentsService from '../../services/Google/establishments';
 
 const GoogleMaps = () => {
-    const [latitude, setLatitude] = useState(0);
-    const [longitude, setLongitude] = useState(0);
+    ...
+
     const [locations, setLocations] = useState([]);
 
-    const mapStyles = {        
-        height: "100vh",
-        width: "100%"
-    };
-
-    useEffect(() => {
-        setCurrentLocation();
-    }, []);
+    ...
 
     useEffect(() => {
         loadCoffeShops();
     }, [longitude])
-
-    async function setCurrentLocation() {
-        try {
-            await navigator.geolocation.getCurrentPosition(function(position) {
-                setLatitude(position.coords.latitude);
-                setLongitude(position.coords.longitude);
-            });
-        } catch (error) {
-            alert('Habilite a localização para utilizar o aplicativo!');
-        }
-    }
 
     // Load all coffee shops
     async function loadCoffeShops() {
         const response = await EstablishmentsService.index(latitude, longitude);
         setLocations(response.data.results);
     }
-    
-    const defaultCenter = {
-        lat: latitude, lng: longitude
-    }
   
-    return (
-        <div className="map">
-            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+    ...
+
                 <GoogleMap mapContainerStyle={mapStyles}
                 zoom={15}
                 center={defaultCenter}>
@@ -238,15 +248,10 @@ const GoogleMaps = () => {
                         })
                     }
                 </GoogleMap>
-            </LoadScript>
-        </div>
-    )
-}
-
-export default GoogleMaps;
+    ...
 ```
 
-19 - Nossos marcadores agora funcionam e estão marcando os cafés \o/
+21 - Nossos marcadores agora funcionam e estão marcando os cafés \o/
 
 ### Setando informações do estabelecimento, pela API do google maps.
 
@@ -275,16 +280,30 @@ export default EstablishmentService;
 
 6 - Dentro desse componente Establishment, crie dois arquivos. O index.js e o style.css.
 
-7 - Substitua o código do /src/components/Establishment/index.js pelo seguinte:
+7 - Vamos criar nosso componente /src/components/Establishment/index.js com a seguinte estrutura:
+
+```
+import React, { useEffect, useState } from 'react';
+
+const Establishment = (props) => {
+    return (
+        <div className="left-bar">
+            
+        </div>
+    )
+}
+
+export default Establishment;
+```
+
+8 - Agora vamos puxar a API pelo EstablishmentService no nosso código. Vamos adicionar o seguinte:
 
 ```
 import React, { useEffect, useState } from 'react';
 
 import EstablishmentService from '../../services/Google/establishment.js';
 
-import ProfilePhoto from '../../assets/cafe_excesso.jpg';
-
-import './style.css';
+...
 
 const Establishment = (props) => {
     const [establishment, setEstablishment] = useState([]);
@@ -305,6 +324,23 @@ const Establishment = (props) => {
     }
 
     return (
+
+        ...
+```
+
+9 - Vamos começar a montar nossa estrutura HTML:
+```
+...
+
+import EstablishmentService from '../../services/Google/establishment.js';
+
+import ProfilePhoto from '../../assets/cafe_excesso.jpg';
+
+import './style.css';
+
+...
+
+    return (
         <div className="left-bar">
             <div className="about">
                 {
@@ -315,6 +351,20 @@ const Establishment = (props) => {
                 }
 
                 <br />
+                
+                <h3>{establishment.name}</h3>
+            </div>
+        </div>
+    )
+}
+
+export default Establishment;
+```
+
+10 - Agora vamos adicionar o nome, o status da cafeteria (Aberto ou fechado), o horário de atendimento e o endereço formatado do estabelecimento:
+
+```
+...
                 
                 <h3>{establishment.name}</h3>
 
@@ -355,8 +405,7 @@ const Establishment = (props) => {
 
 export default Establishment;
 ```
-
-8 - Dentro do /src/components/Establishment/style.css, cole o seguinte código:
+11 - Dentro do /src/components/Establishment/style.css, cole o seguinte código:
 
 ```
 .left-bar {
@@ -396,7 +445,7 @@ export default Establishment;
 }
 ```
 
-9 - Nossa aplicação agora consegue puxar as informações direto do google \o/
+12 - Nossa aplicação agora consegue puxar as informações direto do google \o/
 
 ### Instalando o rbx para fazer o grid da nossa aplicação e dar mais estilo
 
@@ -458,18 +507,30 @@ export default StoreService;
 
 6 - Agora, dentro dessa pasta /src/components/Establishment/ListRatings, crie os arquivos 'index.js' e 'style.css'.
 
-7 - Dentro do arquivo 'index.js', do componente ListRatings, cole o seguinte código:
+7 - Dentro do arquivo 'index.js', do componente ListRatings, estruture o seguinte código:
 
 ```
 import React, { useEffect, useState } from 'react';
 
-import { Column } from 'rbx';
+const ListRatings = (props) => {
+    return (
+        <>
+            
+        </>
+    )
+}
+
+export default ListRatings;
+```
+
+8 - Agora vamos puxar nossas avaliações da API, adicionando o seguinte código:
+
+```
+...
 
 import RatingService from '../../../services/Local/rating.js';
 
-import Rating from '@material-ui/lab/Rating';
-
-import './style.css';
+...
 
 const ListRatings = (props) => {
     const [ratingsList, setRatingsList] = useState([]);
@@ -490,6 +551,21 @@ const ListRatings = (props) => {
     }
 
     return (
+        
+    ...
+```
+
+9 - Feita a conexão com a API, vamos começar a estruturar nosso HTML:
+
+```
+    import { Column } from 'rbx';
+
+    import Rating from '@material-ui/lab/Rating';
+
+    import './style.css';
+    ...
+
+    return (
         <>
             <div className="opinions">
                 <Column.Group>
@@ -505,6 +581,20 @@ const ListRatings = (props) => {
                                 (ratingsList.ratings_count) > 0 ?
                                 ratingsList.ratings_average : 0
                             } readOnly />
+                </Column.Group>
+
+                <hr />
+            </div>
+        </>
+
+        ...
+```
+
+10 - Vamos, agora, listar nossas avaliações no HTML:
+
+```
+                ...
+
                 </Column.Group>
 
                 <hr />
@@ -545,13 +635,11 @@ const ListRatings = (props) => {
                 </div>
             }
         </>
-    )
-}
 
-export default ListRatings;
+        ...
 ```
 
-8 - Dentro do arquivo 'style.css', do componente ListRatings, e cole o seguinte código:
+11 - Dentro do arquivo 'style.css', do componente ListRatings, e cole o seguinte código:
 ```
 .listing_opinions {
     height: 200px;
@@ -559,7 +647,7 @@ export default ListRatings;
 }
 ```
 
-9 - Agora, dentro do nosso componente /src/components/Establishment, no arquivo 'index.js', adicione o seguinte código:
+12 - Agora, dentro do nosso componente /src/components/Establishment, no arquivo 'index.js', adicione o seguinte código:
 
 ```
 import ListRatings from './ListRatings';
@@ -588,7 +676,7 @@ import ListRatings from './ListRatings';
 export default Establishment;
 ```
 
-10 - No componente GoogleMaps, adicione o seguinte código:
+13 - No componente GoogleMaps, adicione o seguinte código:
 
 ```
 ...
@@ -637,7 +725,7 @@ const GoogleMaps = () => {
 </GoogleMap>
 ```
 
-11 - Seu código parecerá com o código abaixo:
+14 - Seu código parecerá com o código abaixo:
 
 ```
 import React, { useEffect, useState } from 'react';
@@ -728,13 +816,27 @@ PS: ('center' do GoogleMap foi modificado a fim de consertar um bug de quando o 
 
 2 - Agora crie os arquivos 'index.js' e 'style.js' no componente Form.
 
-3 - No arquivo 'index.js', cole o seguinte código:
+3 - No arquivo 'index.js', estruture o seguinte código:
+
+```
+import React, { useState } from 'react';
+
+const Form = (props) => {
+    return (
+        <div>
+
+        </div>
+    )
+}
+
+export default Form;
+```
+
+4 - Agora vamos fazer nosso HTML do nosso Form controlado:
 
 ```
 import React, { useState } from 'react';
 import { Column } from 'rbx';
-
-import RatingService from '../../services/Local/rating';
 
 import Rating from '@material-ui/lab/Rating';
 
@@ -744,29 +846,6 @@ const Form = (props) => {
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
     const [value, setValue] = useState(1);
-
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const store_params = {
-            latitude: props.place.geometry.location.lat,
-            longitude: props.place.geometry.location.lng,
-            name: props.place.name,
-            address: props.place.formatted_address,
-            place_id: props.place.place_id
-        }
-
-        const rating_params = {
-            value: (value == null) ? 1 : value,
-            opinion: message,
-            user_name: name
-        }
-
-        await RatingService.create(store_params, rating_params);
-
-        setName('');
-        setMessage('');
-    }
 
     return (
         <div>
@@ -813,7 +892,45 @@ const Form = (props) => {
 export default Form;
 ```
 
-4 - Agora, dentro do arquivo 'style.css', cole o seguinte código:
+5 - Agora vamos adicionar a resposta do Form, à API.
+
+```
+...
+
+const Form = (props) => {
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+    const [value, setValue] = useState(1);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        const store_params = {
+            latitude: props.place.geometry.location.lat,
+            longitude: props.place.geometry.location.lng,
+            name: props.place.name,
+            address: props.place.formatted_address,
+            place_id: props.place.place_id
+        }
+
+        const rating_params = {
+            value: (value == null) ? 1 : value,
+            opinion: message,
+            user_name: name
+        }
+
+        await RatingService.create(store_params, rating_params);
+
+        setName('');
+        setMessage('');
+    }
+
+    return (
+    
+    ...
+```
+
+6 - Agora, dentro do arquivo 'style.css', cole o seguinte código:
 
 ```
 form > input, form > textarea {
@@ -825,7 +942,7 @@ form > input, form > textarea {
 }
 ```
 
-5 - No código do arquivo /src/components/Establishment/index.js, adicione o seguinte código:
+7 - No código do arquivo /src/components/Establishment/index.js, adicione o seguinte código:
 
 ```
 import React, { useEffect, useState } from 'react';
@@ -858,15 +975,28 @@ import Form from '../Form';
 
 2 - Dentro do componente NearstCoffees, crie os arquivos 'index.js' e 'style.css'.
 
-3 - Cole o seguinte código no 'index.js':
+3 - Adicione o seguinte código no 'index.js':
 
 ```
 import React, { useEffect, useState } from 'react';
-import ListCoffees from './ListCoffees';
+
+const NearstCoffees = (props) => {
+    return (
+        <div className="right-bar">
+            
+        </div>
+    )
+}
+
+export default NearstCoffees;
+```
+
+4 - Agora vamos conectar com a nossa API de Stores:
+
+```
+import React, { useEffect, useState } from 'react';
 
 import StoreService from '../../services/Local/store';
-
-import "./style.css";
 
 const NearstCoffees = (props) => {
     const [stores, setStores] = useState([]);
@@ -879,6 +1009,22 @@ const NearstCoffees = (props) => {
         const response = await StoreService.index(props.latitude, props.longitude);
         setStores(response.data);
     }
+
+    return (
+
+        ...
+```
+
+5 - Agora vamos setar nosso HTML do componente NearstCoffees:
+
+```
+...
+
+import ListCoffees from './ListCoffees';
+
+import "./style.css";
+
+    ...
 
     return (
         <div className="right-bar">
@@ -911,7 +1057,7 @@ const NearstCoffees = (props) => {
 export default NearstCoffees;
 ```
 
-3 - Dentro do 'style.css', cole o seguinte código:
+6 - Dentro do 'style.css', cole o seguinte código:
 
 ```
 .right-bar {
@@ -952,16 +1098,30 @@ export default NearstCoffees;
 }
 ```
 
-4 - Crie o componente /src/components/NearstCoffees/ListCoffees.
+7 - Crie o componente /src/components/NearstCoffees/ListCoffees.
 
-5 - Dentro do componente ListCoffees, crie os arquivos 'index.js' e 'style.css'.
+8 - Dentro do componente ListCoffees, crie os arquivos 'index.js' e 'style.css'.
 
-6 - Dentro do arquivo 'index.js', cole o seguinte código:
+9 - Dentro do arquivo 'index.js', cole o seguinte código:
+
 ```
 import React from 'react';
-import { Column } from 'rbx';
 
-import Rating from '@material-ui/lab/Rating';
+const ListEstablishments = (props) => {
+    return (
+        <>
+            
+        </>
+    )
+}
+
+export default ListEstablishments;
+```
+
+10 - Vamos começar a estruturar o nosso HTML adicionando o nome e o endereço:
+
+```
+...
 
 import './style.css';
 
@@ -973,6 +1133,29 @@ const ListEstablishments = (props) => {
                     return (
                         <div key={store.name} className="list_establishment">
                             <b>{store.name}</b>
+
+                            <p>
+                                {store.address}
+                            </p>
+                        </div>
+                    )
+                })
+            }
+        </>
+
+        ...
+```
+
+11 - Agora vamos adicionar as estrelas de avaliação e a quantidade de opiniões:
+
+```
+...
+
+import Rating from '@material-ui/lab/Rating';
+
+import './style.css';
+
+...
 
                             <p>
                                 {store.address}
@@ -1005,7 +1188,7 @@ const ListEstablishments = (props) => {
 export default ListEstablishments;
 ```
 
-7 - Agora, dentro do arquivo 'style.css', cole o seguinte código:
+12 - Agora, dentro do arquivo 'style.css', cole o seguinte código:
 
 ```
 .list_establishment p {
@@ -1027,7 +1210,7 @@ export default ListEstablishments;
 }
 ```
 
-8 - No arquivo /src/components/GoogleMaps/index.js, coloque o seguinte código acima do fechamento da tag <GoogleMap>:
+13 - No arquivo /src/components/GoogleMaps/index.js, coloque o seguinte código acima do fechamento da tag <GoogleMap>:
 ```
         {
             locations.map(item => {
@@ -1055,7 +1238,7 @@ export default ListEstablishments;
 </LoadScript>
 ```
 
-9 - Seu componente GoogleMaps deve parecer com o seguinte visual:
+14 - Seu componente GoogleMaps deve parecer com o seguinte visual:
 ```
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
