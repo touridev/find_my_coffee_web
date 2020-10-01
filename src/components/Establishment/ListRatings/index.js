@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Column } from 'rbx';
 
-import RatingService from '../../../services/Local/rating.js';
+import RatingService from '../../../services/rating';
 
 import Rating from '@material-ui/lab/Rating';
 

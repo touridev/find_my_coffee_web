@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-import EstablishmentsService from '../../services/Google/establishments';
+import EstablishmentsService from '../../services/google_list_of_establishments';
 
 import Establishment from '../Establishment';
 import NearstCoffees from '../NearstCoffees';

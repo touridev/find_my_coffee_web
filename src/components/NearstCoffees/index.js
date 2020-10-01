@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ListCoffees from './ListCoffees';
 
-import StoreService from '../../services/Local/store';
+import StoreService from '../../services/store';
 
 import "./style.css";
 

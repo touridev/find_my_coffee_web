@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Form from '../Form';
 import ListRatings from './ListRatings';
 
-import EstablishmentService from '../../services/Google/establishment.js';
+import EstablishmentService from '../../services/google_establishment';
 
 import ProfilePhoto from '../../assets/cafe_excesso.jpg';
 

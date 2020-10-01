@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Column } from 'rbx';
 
-import RatingService from '../../services/Local/rating';
+import RatingService from '../../services/rating';
 
 import Rating from '@material-ui/lab/Rating';
 
