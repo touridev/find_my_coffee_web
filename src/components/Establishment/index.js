@@ -32,7 +32,7 @@ const Establishment = (props) => {
             <div className="about">
                 {
                     (establishment.photos) ? 
-                        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${establishment.photos[0].photo_reference}&sensor=false&key=AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w`} alt="Store perfil"/> 
+                        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${establishment.photos[0].photo_reference}&sensor=false&key=YOUR_SECRET_KEY`} alt="Store perfil"/> 
                     :  
                         <img src={ProfilePhoto} alt="No perfil" />
                 }
