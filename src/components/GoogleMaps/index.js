@@ -48,7 +48,7 @@ const GoogleMaps = () => {
   
     return (
         <div className="map">
-            <LoadScript googleMapsApiKey='AIzaSyAriO9z5tX1tht7YomsgWyC9BNpWMT599w'>
+            <LoadScript googleMapsApiKey='YOUR_SECRET_KEY'>
                 <GoogleMap mapContainerStyle={mapStyles}
                 zoom={15}
                 center={(selected.geometry) ? '' : defaultCenter}>
