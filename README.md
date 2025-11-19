@@ -1,5 +1,5 @@
 
-![Logo of the project](https://github.com/OneBitCodeBlog/find-my-coffee-client/blob/master/src/assets/readme/logo-fmc-01.png)
+![Logo of the project](https://github.com/touridev/find_my_coffee_web/blob/master/src/assets/readme/logo-fmc-01.png)
 
 
 ## Find My Coffee Web
@@ -21,7 +21,7 @@ Find My Coffee Web é o frontend de um aplicativo FullStack. Ele te possibilita 
 ## Iniciando
 
 * Dependências
-  - API (https://github.com/OneBitCodeBlog/find-my-coffee)
+  - API (https://github.com/touridev/find_my_coffee_api)
   - Git
   - Yarn
 
@@ -33,7 +33,7 @@ Find My Coffee Web é o frontend de um aplicativo FullStack. Ele te possibilita 
 
 ## Telas
 
-![Homepage image](https://github.com/OneBitCodeBlog/find-my-coffee-client/blob/master/src/assets/readme/home_page.png)
+![Homepage image](https://github.com/touridev/find_my_coffee_web/blob/master/src/assets/readme/home_page.png)
 
 
 ## Features
@@ -46,15 +46,8 @@ As principais funções do app são:
 
 
 ## Links
-  - Repositório: https://github.com/OneBitCodeBlog/find-my-coffee-client
-    - Em casos de vulnerabilidades de segurança, bugs ou qualquer tipo de alerta,
-      entre em contato com a nossa equipe. Nós valorizamos qualquer atitude para melhora
-      de segurança e qualidade de nosso repositório <3
+  - Repositório: https://github.com/touridev/find_my_coffee_web
 
   ## Versioning
 
   1.0.0.0
-
-
-  Siga nosso Guithub e obrigado por estar com a gente!
-  Bons códigos!
